@@ -72,9 +72,10 @@ h4 {
   color: #fff;
   padding: 8px 10px;
   border-radius: 5px;
+  transition: background 0.7s ease-in-out;
 }
 
 .btn-card:hover {
-  border: 1px solid #fff;
-  padding: 7px 9px;
+  transition: background 0.7s ease-in-out;
+  background:#206fa3;
 }

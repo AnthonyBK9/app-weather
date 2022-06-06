@@ -8,8 +8,10 @@ const Card = () => {
     const [latLon, setlatLon] = useState();
     const [weather, setWeather] = useState();
     const [temp, setTemp] = useState(true);
+    const [update, setUpdate] = useState(true);
 
-    const toggleTemp = () => setTemp(!temp); 
+    const toggleTemp = () => setTemp(!temp);
+    const toggleUpdate = () => setUpdate(!update);
     useEffect(() => {
 
         const success = pos => {
@@ -19,7 +21,7 @@ const Card = () => {
         }
         navigator.geolocation.getCurrentPosition(success);
 
-    }, []);
+    }, [update]);
 
     useEffect(() => {
         if (latLon !== undefined) {
@@ -36,10 +38,18 @@ const Card = () => {
             weatherId = img.img;
         }
     });
+    const tempW = {
+        tC: (weather?.main.temp - 273.15).toFixed(1),
+        tCMin: (weather?.main.temp_min - 273.15).toFixed(1),
+        tCMax: (weather?.main.temp_max - 273.15).toFixed(1),
+        tF: (weather?.main.temp),
+        tFMin: (weather?.main.temp_min),
+        tFMax: (weather?.main.temp_max)
+    }
     return (
       <article className="container">
         <div className="card">
-          <button className="btn-card">Actualizar</button>
+          <button className="btn-card" onClick={toggleUpdate}>Actualizar</button>
             <div className="card-header">
                 <div className="card-title">
                     <h1>Weather App</h1>
@@ -52,10 +62,10 @@ const Card = () => {
             <div className="card-body">
                 <h3 className="country">{(weather?.weather[0].main) }</h3>
                 <img src={weatherId} alt="weather-icon" className="card-img"/>
-                <h3 className="color-white"><b>Temp:</b> {  temp ? (weather?.main.temp -273.15).toFixed(1) : weather?.main.temp } { temp ? 'ºC': 'ºF'} </h3>
+                <h3 className="color-white"><b>Temp:</b> {  temp ? tempW.tC + 'ºC' : tempW.tF + 'ºF'}</h3>
                     <div className="temp">
-                        <h4 className="color-white"><b>Temp max:</b> { temp ? (weather?.main.temp_max -273.15).toFixed(1) : weather?.main.temp_max } { temp ? 'ºC': 'ºF'}</h4>
-                        <h4 className="color-white"><b>Temp min:</b> { temp ? (weather?.main.temp_min -273.15).toFixed(1) : weather?.main.temp_min } { temp ? 'ºC': 'ºF'}</h4>
+                        <h4 className="color-white"><b>Temp max:</b> { temp ? tempW.tCMax + 'ºC' : tempW.tFMax + 'ºF'}</h4>
+                        <h4 className="color-white"><b>Temp min:</b> { temp ? tempW.tCMin + 'ºC' : tempW.tFMin + 'ºF'}</h4>
                     </div>
                 <p><b>Wind speed:</b> {weather?.wind.speed} m/s</p>
                 <p><b>Clouds: </b> {weather?.clouds.all}%</p>
