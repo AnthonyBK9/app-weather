@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+h4 {
+  font-size: 15px;
+}
+
+.img-weather {
+  width: 100%;
+  min-height: 100vh;
+}
+
 .color-white {
   color: #fff;
 }
@@ -16,17 +25,17 @@
   flex-direction: column;
   justify-content: center;
   padding: 15px;
-  max-width: 576px;
+  max-width: 50%;
   margin: 0 auto;
 }
 
 .card {
-  background: rgba(28, 143, 158, 0.658);
+  background: rgba(23, 68, 110, 0.808);
   box-shadow: 2px 2px 8px #000;
   padding: 15px;
   margin: 0 auto;
   min-width: 310px;
-  color: rgb(6, 38, 66);
+  color: #081624;
 }
 
 .country {
@@ -39,8 +48,12 @@
   color: #ffffff;
 }
 
+.card-img {
+  width: 30%;
+}
+
 .card-body b {
-  color: rgb(6, 38, 66);
+  color: #081624;
 }
 
 .card-header {	

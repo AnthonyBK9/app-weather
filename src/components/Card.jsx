@@ -30,8 +30,12 @@ const Card = () => {
                 .catch((err => console.log(err)))
         }
     }, [latLon]);
-
-    console.log(weather);
+    let weatherId;
+    images.forEach( img => {    
+        if (img.title === (weather?.weather[0].main)) {
+            weatherId = img.img;
+        }
+    });
     return (
       <article className="container">
         <div className="card">
@@ -47,7 +51,7 @@ const Card = () => {
             </div>
             <div className="card-body">
                 <h3 className="country">{(weather?.weather[0].main) }</h3>
-                <img src={images[1].img} alt="weather-icon" className="card-img"/>
+                <img src={weatherId} alt="weather-icon" className="card-img"/>
                 <h3 className="color-white"><b>Temp:</b> {  temp ? (weather?.main.temp -273.15).toFixed(1) : weather?.main.temp } { temp ? 'ºC': 'ºF'} </h3>
                     <div className="temp">
                         <h4 className="color-white"><b>Temp max:</b> { temp ? (weather?.main.temp_max -273.15).toFixed(1) : weather?.main.temp_max } { temp ? 'ºC': 'ºF'}</h4>
@@ -55,7 +59,7 @@ const Card = () => {
                     </div>
                 <p><b>Wind speed:</b> {weather?.wind.speed} m/s</p>
                 <p><b>Clouds: </b> {weather?.clouds.all}%</p>
-                <button className="btn-card" onClick={toggleTemp}>Grados ºF/ºC</button>
+                <button className="btn-card" onClick={toggleTemp}>Degrees ºC/ºF</button>
             </div>
         </div>
       </article>
